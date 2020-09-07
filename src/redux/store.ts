@@ -1,5 +1,5 @@
 import { combineReducers, createStore, applyMiddleware } from "redux";
-import { reducerPosts } from "./reducers/reducerPosts";
+import { reducerActivites } from "./reducers/reducerActivites";
 
 import { middlewares } from "./middlewares";
 
@@ -7,7 +7,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { middlewareSaga } from "./middlewares/middlewareSaga";
 
 const initialState = {
-  posts: {
+  activites: {
     list: [],
   },
 };
@@ -15,7 +15,7 @@ const initialState = {
 function* rootSaga() {}
 
 const rootReducer = combineReducers({
-  posts: reducerPosts,
+  activites: reducerActivites,
 });
 
 export const configureStore = () => {

@@ -1,21 +1,20 @@
 import React, { FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectorPosts } from "../../redux/selectors";
-import { ACTION_UNSET_POST } from "../../redux/actions";
+import { ACTION_UNSET_ACTIVITE } from "../../redux/actions";
+import { TActionParams } from "../../redux/Params/actionParams";
 
 export const List = (): JSX.Element => {
   const posts = useSelector(selectorPosts);
   const dispatch = useDispatch();
 
-  const onDelete = (description: string): any =>
-    dispatch({ type: ACTION_UNSET_POST, payload: description });
+  const onDelete = (id: number): any =>
+    dispatch({ type: ACTION_UNSET_ACTIVITE, payload: id });
 
-  return posts.map((post: any, index: number) => (
+  return posts.map((action: TActionParams, index: number) => (
     <div key={index}>
-      <p>
-        {post.description} {post.name}
-      </p>
-      <button onClick={() => onDelete(post.description)}>Elimina Post</button>
+      <p>{` ${action.description} ${action.name} ${action.timerWork}`}</p>
+      <button onClick={(): void => onDelete(action.id)}>Elimina Timer</button>
     </div>
   ));
 };

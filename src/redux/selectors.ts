@@ -1,1 +1,1 @@
-export const selectorPosts = (state: any) => state.posts.list;
+export const selectorPosts = (state: any) => state.activites.list;
