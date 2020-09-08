@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Select } from "../Select";
+import React, { useState, useEffect, ChangeEvent } from "react";
+import { UISelect } from "../Select";
 import { useDispatch } from "react-redux";
 import { ACTION_SET_ACTIVITE } from "../../redux/actions";
 import { TActionParams } from "../../redux/Params/actionParams";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlayCircle, faStop } from "@fortawesome/free-solid-svg-icons";
+import { Wrapper } from "./partials/wrapper";
+import { Button } from "./partials/button";
+import { Input } from "./partials/input";
 
 export const Header = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -37,6 +42,7 @@ export const Header = (): JSX.Element => {
 
   const setPost = (): void => {
     setVisbleTime(!visibleTime);
+    setDescription("");
     const payload: TActionParams = {
       id: Math.floor(Math.random() * 100),
       name,
@@ -48,14 +54,26 @@ export const Header = (): JSX.Element => {
   };
 
   return (
-    <div>
-      <input
-        onChange={(event: any): void => setDescription(event.target.value)}
-      ></input>
-      <Select setName={setName} />
-      {visibleTime && <div>{`${description} ${name} ${timeWork}`}</div>}
-      {!visibleTime && <button onClick={(): void => start()}>Play</button>}
-      {visibleTime && <button onClick={(): void => setPost()}>Stop</button>}
-    </div>
+    <Wrapper>
+      <Input
+        value={description}
+        placeholder="inserisci attivita"
+        onChange={(event: ChangeEvent<HTMLInputElement>): void =>
+          setDescription(event.target.value)
+        }
+      ></Input>
+      <UISelect setName={setName} />
+      {visibleTime && <div>{` ${timeWork}`}</div>}
+      {!visibleTime && (
+        <Button onClick={(): void => start()}>
+          <FontAwesomeIcon icon={faPlayCircle} color="green" size="2x" />
+        </Button>
+      )}
+      {visibleTime && (
+        <Button onClick={(): void => setPost()}>
+          <FontAwesomeIcon icon={faStop} color="red" size="2x" />
+        </Button>
+      )}
+    </Wrapper>
   );
 };
